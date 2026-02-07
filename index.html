@@ -13,6 +13,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            flex-direction: column;
         }
         .button {
             background-color: #ff69b4; /* Màu hồng đậm */
@@ -29,24 +30,43 @@
         }
         .message {
             display: none;
-            margin-top: 20px;
             font-size: 24px;
             color: #d63384;
             text-align: center;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .visible {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <div>
-        <button class="button" onclick="showMessage()">Bấm vào đây</button>
-        <div id="message" class="message">
-            Chúc mừng ngày Valentine! Bạn là người đặc biệt nhất trong lòng tôi. ❤️
-        </div>
+    <div id="content">
+        <button class="button" id="valentineButton" onclick="startValentine()">Bấm vào đây</button>
+        <div id="message1" class="message">Chúc mừng ngày Valentine! ❤️</div>
+        <div id="message2" class="message">Bạn là người đặc biệt nhất trong lòng tôi.</div>
+        <div id="message3" class="message">Mỗi khoảnh khắc bên bạn đều là hạnh phúc.</div>
+        <div id="message4" class="message">Yêu bạn nhiều lắm, mãi mãi! 💕</div>
+        <div id="message5" class="message">Chúc bạn một ngày tràn đầy tình yêu và niềm vui!</div>
     </div>
 
     <script>
-        function showMessage() {
-            document.getElementById('message').style.display = 'block';
+        function startValentine() {
+            // Ẩn nút
+            document.getElementById('valentineButton').style.display = 'none';
+            
+            // Hiển thị từng dòng lời chúc với delay 3 giây
+            const messages = ['message1', 'message2', 'message3', 'message4', 'message5'];
+            messages.forEach((id, index) => {
+                setTimeout(() => {
+                    document.getElementById(id).style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById(id).classList.add('visible');
+                    }, 100); // Thêm hiệu ứng fade-in nhẹ
+                }, index * 3000); // 3 giây mỗi dòng
+            });
         }
     </script>
 </body>
