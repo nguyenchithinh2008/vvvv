@@ -30,8 +30,8 @@
             background-color: #ff1493; /* Màu hồng tối hơn khi hover */
         }
         .letter {
-            width: 320px; /* Giảm kích thước */
-            height: 220px; /* Giảm kích thước */
+            width: 320px; /* Kích thước nhỏ */
+            height: 220px; /* Kích thước nhỏ */
             background-color: #fff;
             border: 2px solid #ff69b4;
             border-radius: 10px;
@@ -65,8 +65,11 @@
             border-radius: 10px;
             transform: rotateX(180deg);
             padding: 20px;
-            text-align: center;
+            text-align: center; /* Chữ ra giữa */
             overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .seal {
             width: 50px;
@@ -82,10 +85,9 @@
         }
         .message {
             display: none;
-            font-size: 24px;
+            font-size: 18px; /* Giảm font size để vừa bức thư */
             color: #d63384;
             text-align: center;
-            margin-top: 20px;
             opacity: 0;
             transition: opacity 1s;
         }
@@ -130,7 +132,7 @@
                 height: 45vh; /* Giảm kích thước trên mobile */
             }
             .message {
-                font-size: 18px; /* Giảm font size */
+                font-size: 16px; /* Giảm font size */
             }
             .button {
                 font-size: 16px;
@@ -155,7 +157,7 @@
                 <div class="seal" id="seal" onclick="openLetter()"></div>
             </div>
             <div class="letter-back">
-                <div id="message1" class="message">Chúc mừng ngày Valentine! ❤️</div>
+                <div id="message1" class="message">Chúc mừng ngày Valentine! Anh yêu bé Châu nhiều lắm. ❤️</div>
                 <div id="message2" class="message">Bé Châu là người đặc biệt nhất trong lòng anh.</div>
                 <div id="message3" class="message">Mỗi khoảnh khắc bên bé Châu đều là hạnh phúc.</div>
                 <div id="message4" class="message">Yêu bé Châu nhiều lắm, mãi mãi! 💕</div>
@@ -165,6 +167,26 @@
                 <div id="message8" class="message">Anh yêu bé Châu từ cái nhìn đầu tiên.</div>
                 <div id="message9" class="message">Chúc bé Châu sức khỏe và hạnh phúc mãi mãi!</div>
                 <div id="message10" class="message">Valentine này, anh muốn bên bé Châu suốt đời. 💖</div>
+                <div id="message11" class="message">Khi bé Châu vui, anh cũng vui theo. Hãy luôn cười tươi nhé!</div>
+                <div id="message12" class="message">Nếu bé Châu giận, hãy nói cho anh biết để anh an ủi.</div>
+                <div id="message13" class="message">Khi buồn, bé Châu có anh ở bên cạnh luôn.</div>
+                <div id="message14" class="message">Anh luôn sẵn sàng chia sẻ mọi điều với bé Châu.</div>
+                <div id="message15" class="message">Hãy ăn sáng đúng giờ, không nhịn ăn để khỏe mạnh.</div>
+                <div id="message16" class="message">Hạn chế ăn mỳ cay, bé Châu nhé, để tốt cho dạ dày.</div>
+                <div id="message17" class="message">Anh yêu cách bé Châu cười, nó làm anh hạnh phúc.</div>
+                <div id="message18" class="message">Nếu bé Châu tức giận, hãy thở sâu và nghĩ về anh.</div>
+                <div id="message19" class="message">Buồn bã ư? Hãy gọi anh, anh sẽ làm bé Châu vui lên.</div>
+                <div id="message20" class="message">Chia sẻ cảm xúc với anh, bé Châu sẽ nhẹ nhõm hơn.</div>
+                <div id="message21" class="message">Ăn uống điều độ, ăn sớm để có năng lượng suốt ngày.</div>
+                <div id="message22" class="message">Tránh mỳ cay quá nhiều, bé Châu yêu quý của anh.</div>
+                <div id="message23" class="message">Bé Châu vui vẻ là điều anh mong muốn nhất.</div>
+                <div id="message24" class="message">Giận dữ sẽ qua, anh luôn bên bé Châu.</div>
+                <div id="message25" class="message">Khi buồn, hãy nhớ anh yêu bé Châu vô điều kiện.</div>
+                <div id="message26" class="message">Hãy chia sẻ mọi thứ, anh là người lắng nghe tốt nhất.</div>
+                <div id="message27" class="message">Không nhịn ăn, hãy ăn đúng bữa để khỏe.</div>
+                <div id="message28" class="message">Mỳ cay ngon nhưng ăn ít thôi, bé Châu nhé.</div>
+                <div id="message29" class="message">Anh chúc bé Châu luôn vui, ít giận và buồn.</div>
+                <div id="message30" class="message">Yêu bé Châu, ăn uống lành mạnh và chia sẻ cảm xúc với anh. 💖</div>
             </div>
         </div>
     </div>
@@ -172,7 +194,7 @@
 
     <script>
         let currentIndex = 0;
-        const messages = ['message1', 'message2', 'message3', 'message4', 'message5', 'message6', 'message7', 'message8', 'message9', 'message10'];
+        const messages = ['message1', 'message2', 'message3', 'message4', 'message5', 'message6', 'message7', 'message8', 'message9', 'message10', 'message11', 'message12', 'message13', 'message14', 'message15', 'message16', 'message17', 'message18', 'message19', 'message20', 'message21', 'message22', 'message23', 'message24', 'message25', 'message26', 'message27', 'message28', 'message29', 'message30'];
         let intervalId;
 
         function startValentine() {
@@ -222,7 +244,7 @@
                 container.appendChild(heart);
             }
 
-            // Tăng chỉ số, lặp lại sau 10
+            // Tăng chỉ số, lặp lại sau 30
             currentIndex = (currentIndex + 1) % messages.length;
         }
     </script>
