@@ -106,6 +106,38 @@
             top: 230px;
             left: 97px;
         }
+        .arm {
+            width: 60px;
+            height: 30px;
+            background-color: #8B4513;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .arm.left {
+            top: 220px;
+            left: 20px;
+            transform: rotate(-30deg);
+        }
+        .arm.right {
+            top: 220px;
+            left: 170px;
+            transform: rotate(30deg);
+        }
+        .leg {
+            width: 50px;
+            height: 80px;
+            background-color: #8B4513;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+        }
+        .leg.left {
+            bottom: 0;
+            left: 60px;
+        }
+        .leg.right {
+            bottom: 0;
+            left: 140px;
+        }
     </style>
 </head>
 <body>
@@ -131,6 +163,10 @@
         <div class="eye left"></div>
         <div class="eye right"></div>
         <div class="nose"></div>
+        <div class="arm left"></div>
+        <div class="arm right"></div>
+        <div class="leg left"></div>
+        <div class="leg right"></div>
     </div>
 
     <script>
