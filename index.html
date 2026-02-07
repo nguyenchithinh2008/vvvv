@@ -72,6 +72,26 @@
                 transform: scale(0.5) rotate(360deg);
             }
         }
+        .falling-heart {
+            position: absolute;
+            top: -20px;
+            width: 15px;
+            height: 15px;
+            background-color: #ff1493;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: fall 5s linear infinite;
+            opacity: 0.7;
+        }
+        @keyframes fall {
+            0% {
+                top: -20px;
+                transform: rotate(0deg);
+            }
+            100% {
+                top: 100vh;
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -94,6 +114,7 @@
         let currentIndex = 0;
         const messages = ['message1', 'message2', 'message3', 'message4', 'message5', 'message6', 'message7', 'message8', 'message9', 'message10'];
         let intervalId;
+        let fallingInterval;
 
         function startValentine() {
             // Ẩn nút
@@ -102,6 +123,9 @@
             // Bắt đầu hiển thị lời chúc liên tục
             showNextMessage();
             intervalId = setInterval(showNextMessage, 3000); // Mỗi 3 giây
+
+            // Bắt đầu hiệu ứng trái tim rơi liên tục
+            fallingInterval = setInterval(createFallingHeart, 1000); // Mỗi 1 giây tạo một trái tim rơi
         }
 
         function showNextMessage() {
@@ -134,6 +158,18 @@
 
             // Tăng chỉ số, lặp lại sau 10
             currentIndex = (currentIndex + 1) % messages.length;
+        }
+
+        function createFallingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'falling-heart';
+            heart.style.left = Math.random() * 100 + '%'; // Vị trí ngẫu nhiên ngang
+            document.body.appendChild(heart);
+
+            // Xóa trái tim sau khi animation kết thúc
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
         }
     </script>
 </body>
