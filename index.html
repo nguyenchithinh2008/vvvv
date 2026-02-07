@@ -29,6 +29,31 @@
         .button:hover {
             background-color: #ff1493; /* Màu hồng tối hơn khi hover */
         }
+        .letter {
+            display: none;
+            width: 400px;
+            height: 300px;
+            background-color: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            position: relative;
+            transform: perspective(1000px) rotateY(180deg);
+            transform-origin: left;
+            animation: openLetter 2s ease-out forwards;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        @keyframes openLetter {
+            0% {
+                transform: perspective(1000px) rotateY(180deg);
+            }
+            100% {
+                transform: perspective(1000px) rotateY(0deg);
+            }
+        }
+        .letter-content {
+            padding: 20px;
+            text-align: center;
+        }
         .message {
             display: none;
             font-size: 24px;
@@ -97,16 +122,20 @@
 <body>
     <div id="content">
         <button class="button" id="valentineButton" onclick="startValentine()">Bấm vào đây</button>
-        <div id="message1" class="message">Chúc mừng ngày Valentine! ❤️</div>
-        <div id="message2" class="message">Bé Châu là người đặc biệt nhất trong lòng anh.</div>
-        <div id="message3" class="message">Mỗi khoảnh khắc bên bé Châu đều là hạnh phúc.</div>
-        <div id="message4" class="message">Yêu bé Châu nhiều lắm, mãi mãi! 💕</div>
-        <div id="message5" class="message">Chúc bé Châu một ngày tràn đầy tình yêu và niềm vui!</div>
-        <div id="message6" class="message">Bé Châu luôn làm anh cười mỗi ngày.</div>
-        <div id="message7" class="message">Cảm ơn bé Châu vì tất cả những gì bé Châu đã làm cho anh.</div>
-        <div id="message8" class="message">Anh yêu bé Châu từ cái nhìn đầu tiên.</div>
-        <div id="message9" class="message">Chúc bé Châu sức khỏe và hạnh phúc mãi mãi!</div>
-        <div id="message10" class="message">Valentine này, anh muốn bên bé Châu suốt đời. 💖</div>
+        <div class="letter" id="letter">
+            <div class="letter-content">
+                <div id="message1" class="message">Chúc mừng ngày Valentine! ❤️</div>
+                <div id="message2" class="message">Bé Châu là người đặc biệt nhất trong lòng anh.</div>
+                <div id="message3" class="message">Mỗi khoảnh khắc bên bé Châu đều là hạnh phúc.</div>
+                <div id="message4" class="message">Yêu bé Châu nhiều lắm, mãi mãi! 💕</div>
+                <div id="message5" class="message">Chúc bé Châu một ngày tràn đầy tình yêu và niềm vui!</div>
+                <div id="message6" class="message">Bé Châu luôn làm anh cười mỗi ngày.</div>
+                <div id="message7" class="message">Cảm ơn bé Châu vì tất cả những gì bé Châu đã làm cho anh.</div>
+                <div id="message8" class="message">Anh yêu bé Châu từ cái nhìn đầu tiên.</div>
+                <div id="message9" class="message">Chúc bé Châu sức khỏe và hạnh phúc mãi mãi!</div>
+                <div id="message10" class="message">Valentine này, anh muốn bên bé Châu suốt đời. 💖</div>
+            </div>
+        </div>
     </div>
     <div id="heartContainer"></div>
 
@@ -120,9 +149,15 @@
             // Ẩn nút
             document.getElementById('valentineButton').style.display = 'none';
             
-            // Bắt đầu hiển thị lời chúc liên tục
-            showNextMessage();
-            intervalId = setInterval(showNextMessage, 3000); // Mỗi 3 giây
+            // Hiển thị bức thư và mở ra
+            const letter = document.getElementById('letter');
+            letter.style.display = 'block';
+            
+            // Sau khi bức thư mở (2s), bắt đầu hiển thị lời chúc
+            setTimeout(() => {
+                showNextMessage();
+                intervalId = setInterval(showNextMessage, 3000); // Mỗi 3 giây
+            }, 2000);
 
             // Bắt đầu hiệu ứng trái tim rơi liên tục
             fallingInterval = setInterval(createFallingHeart, 1000); // Mỗi 1 giây tạo một trái tim rơi
