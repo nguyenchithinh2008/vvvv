@@ -66,6 +66,7 @@
             transform: rotateX(180deg);
             padding: 20px;
             text-align: center;
+            overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
         }
         .seal {
             width: 50px;
@@ -140,6 +141,32 @@
             100% {
                 top: 100vh;
                 transform: rotate(360deg);
+            }
+        }
+        /* Responsive cho điện thoại */
+        @media (max-width: 600px) {
+            .letter {
+                width: 90vw; /* 90% chiều rộng viewport */
+                height: 60vh; /* 60% chiều cao viewport */
+            }
+            .message {
+                font-size: 18px; /* Giảm font size */
+            }
+            .button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+            .seal {
+                width: 40px;
+                height: 40px;
+            }
+            .heart-particle {
+                width: 15px;
+                height: 15px;
+            }
+            .falling-heart {
+                width: 10px;
+                height: 10px;
             }
         }
     </style>
