@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc mừng Valentine - Bé Châu ì ì ì</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffe6f2, #ffb3d9); /* Gradient hồng lãng mạn */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            position: relative;
+        }
+        .heart {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            color: #ff69b4;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        h1 {
+            font-size: 24px;
+            color: #ff1493;
+            margin-bottom: 20px;
+        }
+        button {
+            background: linear-gradient(45deg, #ff69b4, #ffb6c1);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px; /* Bo góc */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        .message {
+            font-size: 20px;
+            color: #d2691e;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .message.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heart">❤️</div>
+        <h1>Chúc mừng Valentine, Bé Châu ì ì ì!</h1>
+        <button id="clickButton">Nhấn vào đây</button>
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        const messages = [
+            "Bé Châu ì ì ì, anh/em yêu em rất nhiều! Chúc em một ngày Valentine tràn đầy hạnh phúc và tình yêu.",
+            "Em là người đặc biệt nhất trong cuộc đời anh/em. Mỗi khoảnh khắc bên em đều là điều tuyệt vời.",
+            "Chúc bé Châu ì ì ì luôn xinh đẹp, vui vẻ và được bao quanh bởi tình yêu chân thành.",
+            "Anh/em mong em luôn cười tươi như hoa, và chúng ta sẽ cùng nhau tạo nên những kỷ niệm lãng mạn.",
+            "Bé Châu ì ì ì, em là ánh sáng trong cuộc sống anh/em. Chúc em một năm mới đầy ắp yêu thương!",
+            "Dù ở đâu, anh/em cũng luôn nghĩ về em. Chúc em Valentine vui vẻ bên những người thân yêu.",
+            "Em là lý do anh/em cười mỗi ngày. Chúc bé Châu ì ì ì mãi mãi hạnh phúc và được yêu thương."
+        ];
+
+        let currentIndex = 0;
+        const button = document.getElementById('clickButton');
+        const messageDiv = document.getElementById('message');
+
+        button.addEventListener('click', () => {
+            if (currentIndex < messages.length) {
+                messageDiv.textContent = messages[currentIndex];
+                messageDiv.classList.add('show');
+                currentIndex++;
+            } else {
+                messageDiv.textContent = "Đã hết lời chúc! Chúc bé Châu ì ì ì một ngày Valentine tuyệt vời! ❤️";
+                button.textContent = "Nhấn lại để bắt đầu";
+                currentIndex = 0; // Reset để lặp lại
+            }
+        });
+    </script>
+</body>
+</html>
