@@ -56,6 +56,19 @@
             justify-content: center;
             align-items: center;
         }
+        .triangle {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 10px;
+            background-color: #fff;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            border: 2px solid #ff69b4;
+            border-bottom: none;
+            border-radius: 0 0 10px 10px;
+        }
         .letter-back {
             position: absolute;
             width: 100%;
@@ -172,6 +185,10 @@
                 font-size: 16px;
                 padding: 15px;
             }
+            .triangle {
+                width: 15px;
+                height: 8px;
+            }
         }
     </style>
 </head>
@@ -180,6 +197,7 @@
         <button class="button" id="valentineButton" onclick="startValentine()">Bấm vào đây</button>
         <div class="letter" id="letter">
             <div class="letter-front">
+                <div class="triangle"></div>
                 <div class="seal" id="seal" onclick="openLetter()"></div>
             </div>
             <div class="letter-back">
@@ -219,7 +237,7 @@
     <!-- Modal thông báo -->
     <div class="modal-overlay" id="modal">
         <div class="modal-content">
-            Em hãy nhấn vào ngôi sao nhé
+            Thông báo: Em hãy nhấn vào ngôi sao nhé
         </div>
     </div>
     <div id="heartContainer"></div>
