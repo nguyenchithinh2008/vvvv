@@ -69,6 +69,16 @@
             border-bottom: none;
             border-radius: 10px 10px 0 0; /* Bo hai góc trên */
         }
+        .fold-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #ff69b4;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
         .letter-back {
             position: absolute;
             width: 100%;
@@ -172,6 +182,7 @@
         <div class="letter" id="letter">
             <div class="letter-front">
                 <div class="triangle"></div>
+                <div class="fold-line"></div> <!-- Đường gấp để giống thật hơn -->
                 <div class="seal" id="seal" onclick="openLetter()"></div>
             </div>
             <div class="letter-back">
