@@ -41,37 +41,31 @@
             opacity: 1;
         }
         .teddy {
-            width: 50px;
-            height: 50px;
-            animation: bounce 1s infinite;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 300px; /* Kích thước to */
+            height: auto;
+            z-index: -1; /* Để không che lời chúc */
         }
     </style>
 </head>
 <body>
     <div id="content">
         <button class="button" id="valentineButton" onclick="startValentine()">Bấm vào đây</button>
-        <div id="message1" class="message">Chúc mừng ngày Valentine! ❤️ <img src="https://i.imgur.com/4Z8m7wK.png" class="teddy" alt="Gấu bông"></div>
-        <div id="message2" class="message">Bé Châu là người đặc biệt nhất trong lòng anh. <img src="https://i.imgur.com/4Z8m7wK.png" class="teddy" alt="Gấu bông"></div>
-        <div id="message3" class="message">Mỗi khoảnh khắc bên bé Châu đều là hạnh phúc. <img src="https://i.imgur.com/4Z8m7wK.png" class="teddy" alt="Gấu bông"></div>
-        <div id="message4" class="message">Yêu bé Châu nhiều lắm, mãi mãi! 💕 <img src="https://i.imgur.com/4Z8m7wK.png" class="teddy" alt="Gấu bông"></div>
-        <div id="message5" class="message">Chúc bé Châu một ngày tràn đầy tình yêu và niềm vui! <img src="https://i.imgur.com/4Z8m7wK.png" class="teddy" alt="Gấu bông"></div>
-        <div id="message6" class="message">Bé Châu luôn làm anh cười mỗi ngày. <img src="https://i.imgur.com/4Z8m7wK.png" class="teddy" alt="Gấu bông"></div>
-        <div id="message7" class="message">Cảm ơn bé Châu vì tất cả những gì bé Châu đã làm cho anh. <img src="https://i.imgur.com/4Z8m7wK.png" class="teddy" alt="Gấu bông"></div>
-        <div id="message8" class="message">Anh yêu bé Châu từ cái nhìn đầu tiên. <img src="https://i.imgur.com/4Z8m7wK.png" class="teddy" alt="Gấu bông"></div>
-        <div id="message9" class="message">Chúc bé Châu sức khỏe và hạnh phúc mãi mãi! <img src="https://i.imgur.com/4Z8m7wK.png" class="teddy" alt="Gấu bông"></div>
-        <div id="message10" class="message">Valentine này, anh muốn bên bé Châu suốt đời. 💖 <img src="https://i.imgur.com/4Z8m7wK.png" class="teddy" alt="Gấu bông"></div>
+        <div id="message1" class="message">Chúc mừng ngày Valentine! ❤️</div>
+        <div id="message2" class="message">Bé Châu là người đặc biệt nhất trong lòng anh.</div>
+        <div id="message3" class="message">Mỗi khoảnh khắc bên bé Châu đều là hạnh phúc.</div>
+        <div id="message4" class="message">Yêu bé Châu nhiều lắm, mãi mãi! 💕</div>
+        <div id="message5" class="message">Chúc bé Châu một ngày tràn đầy tình yêu và niềm vui!</div>
+        <div id="message6" class="message">Bé Châu luôn làm anh cười mỗi ngày.</div>
+        <div id="message7" class="message">Cảm ơn bé Châu vì tất cả những gì bé Châu đã làm cho anh.</div>
+        <div id="message8" class="message">Anh yêu bé Châu từ cái nhìn đầu tiên.</div>
+        <div id="message9" class="message">Chúc bé Châu sức khỏe và hạnh phúc mãi mãi!</div>
+        <div id="message10" class="message">Valentine này, anh muốn bên bé Châu suốt đời. 💖</div>
     </div>
+    <!-- Gấu bông màu nâu to ở góc trái dưới -->
+    <img src="https://via.placeholder.com/300x300/8B4513/FFFFFF?text=Teddy+Bear" class="teddy" alt="Gấu bông màu nâu">
 
     <script>
         let currentIndex = 0;
