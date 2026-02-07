@@ -50,23 +50,44 @@
         <div id="message3" class="message">Mỗi khoảnh khắc bên anh đều là hạnh phúc.</div>
         <div id="message4" class="message">Yêu anh nhiều lắm, mãi mãi! 💕</div>
         <div id="message5" class="message">Chúc anh một ngày tràn đầy tình yêu và niềm vui!</div>
+        <div id="message6" class="message">Anh luôn làm bé Châu cười mỗi ngày.</div>
+        <div id="message7" class="message">Cảm ơn anh vì tất cả những gì anh đã làm cho bé Châu.</div>
+        <div id="message8" class="message">Bé Châu yêu anh từ cái nhìn đầu tiên.</div>
+        <div id="message9" class="message">Chúc anh sức khỏe và hạnh phúc mãi mãi!</div>
+        <div id="message10" class="message">Valentine này, bé Châu muốn bên anh suốt đời. 💖</div>
     </div>
 
     <script>
+        let currentIndex = 0;
+        const messages = ['message1', 'message2', 'message3', 'message4', 'message5', 'message6', 'message7', 'message8', 'message9', 'message10'];
+        let intervalId;
+
         function startValentine() {
             // Ẩn nút
             document.getElementById('valentineButton').style.display = 'none';
             
-            // Hiển thị từng dòng lời chúc với delay 3 giây
-            const messages = ['message1', 'message2', 'message3', 'message4', 'message5'];
-            messages.forEach((id, index) => {
-                setTimeout(() => {
-                    document.getElementById(id).style.display = 'block';
-                    setTimeout(() => {
-                        document.getElementById(id).classList.add('visible');
-                    }, 100); // Thêm hiệu ứng fade-in nhẹ
-                }, index * 3000); // 3 giây mỗi dòng
+            // Bắt đầu hiển thị lời chúc liên tục
+            showNextMessage();
+            intervalId = setInterval(showNextMessage, 3000); // Mỗi 3 giây
+        }
+
+        function showNextMessage() {
+            // Ẩn tất cả lời chúc
+            messages.forEach(id => {
+                const el = document.getElementById(id);
+                el.style.display = 'none';
+                el.classList.remove('visible');
             });
+
+            // Hiển thị lời chúc hiện tại
+            const currentId = messages[currentIndex];
+            document.getElementById(currentId).style.display = 'block';
+            setTimeout(() => {
+                document.getElementById(currentId).classList.add('visible');
+            }, 100);
+
+            // Tăng chỉ số, lặp lại sau 10
+            currentIndex = (currentIndex + 1) % messages.length;
         }
     </script>
 </body>
