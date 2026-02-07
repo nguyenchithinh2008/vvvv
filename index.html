@@ -45,13 +45,13 @@
             bottom: 0;
             left: 0;
             width: 250px;
-            height: 300px;
+            height: 350px;
             z-index: -1; /* Để không che lời chúc */
         }
         .body {
             width: 150px;
             height: 200px;
-            background-color: #8B4513; /* Màu nâu */
+            background-color: #D2B48C; /* Màu nâu nhạt cho bụng */
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             position: absolute;
             bottom: 0;
@@ -60,7 +60,7 @@
         .head {
             width: 120px;
             height: 120px;
-            background-color: #8B4513;
+            background-color: #D2B48C; /* Màu nâu nhạt cho mặt */
             border-radius: 50%;
             position: absolute;
             bottom: 180px;
@@ -69,7 +69,7 @@
         .ear {
             width: 40px;
             height: 40px;
-            background-color: #8B4513;
+            background-color: #D2B48C; /* Màu nâu nhạt */
             border-radius: 50%;
             position: absolute;
         }
@@ -81,30 +81,99 @@
             top: 160px;
             left: 155px;
         }
+        .ear-inner {
+            width: 20px;
+            height: 20px;
+            background-color: #F5DEB3; /* Nâu nhạt hơn cho bên trong tai */
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
         .eye {
-            width: 10px;
-            height: 10px;
+            width: 15px;
+            height: 15px;
             background-color: black;
             border-radius: 50%;
             position: absolute;
         }
         .eye.left {
             top: 200px;
-            left: 85px;
+            left: 80px;
         }
         .eye.right {
             top: 200px;
             left: 115px;
         }
         .nose {
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-bottom: 10px solid black;
+            width: 8px;
+            height: 6px;
+            background-color: #654321; /* Nâu đậm */
+            border-radius: 50%;
             position: absolute;
             top: 230px;
-            left: 97px;
+            left: 96px;
+        }
+        .mouth {
+            width: 20px;
+            height: 10px;
+            background-color: #D2B48C;
+            border-radius: 0 0 50% 50%;
+            position: absolute;
+            top: 240px;
+            left: 90px;
+            overflow: hidden;
+        }
+        .tongue {
+            width: 10px;
+            height: 5px;
+            background-color: #FF69B4; /* Hồng */
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+        .bow {
+            width: 30px;
+            height: 15px;
+            background-color: black;
+            border-radius: 50% 50% 0 0;
+            position: absolute;
+            top: 175px;
+            left: 85px;
+        }
+        .bow-center {
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 170px;
+            left: 95px;
+        }
+        .leg {
+            width: 50px;
+            height: 80px;
+            background-color: #8B4513; /* Nâu */
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+        }
+        .leg.left {
+            bottom: 0;
+            left: 60px;
+        }
+        .leg.right {
+            bottom: 0;
+            left: 140px;
+        }
+        .foot-pad {
+            width: 30px;
+            height: 20px;
+            background-color: #D2B48C; /* Nâu nhạt cho lòng bàn chân */
+            border-radius: 50%;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
         }
         .arm {
             width: 60px;
@@ -123,20 +192,24 @@
             left: 170px;
             transform: rotate(30deg);
         }
-        .leg {
-            width: 50px;
-            height: 80px;
-            background-color: #8B4513;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        .heart {
+            width: 80px;
+            height: 70px;
+            background-color: #FF69B4; /* Hồng */
             position: absolute;
+            top: 200px;
+            left: 85px;
+            transform: rotate(-10deg);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
         }
-        .leg.left {
-            bottom: 0;
-            left: 60px;
-        }
-        .leg.right {
-            bottom: 0;
-            left: 140px;
+        .heart-text {
+            position: absolute;
+            top: 220px;
+            left: 105px;
+            font-size: 10px;
+            color: white;
+            font-weight: bold;
+            transform: rotate(-10deg);
         }
     </style>
 </head>
@@ -154,19 +227,24 @@
         <div id="message9" class="message">Chúc bé Châu sức khỏe và hạnh phúc mãi mãi!</div>
         <div id="message10" class="message">Valentine này, anh muốn bên bé Châu suốt đời. 💖</div>
     </div>
-    <!-- Gấu bông màu nâu to ở góc trái dưới, vẽ bằng CSS -->
+    <!-- Gấu bông theo mô tả -->
     <div class="teddy">
         <div class="body"></div>
         <div class="head"></div>
-        <div class="ear left"></div>
-        <div class="ear right"></div>
+        <div class="ear left"><div class="ear-inner"></div></div>
+        <div class="ear right"><div class="ear-inner"></div></div>
         <div class="eye left"></div>
         <div class="eye right"></div>
         <div class="nose"></div>
+        <div class="mouth"><div class="tongue"></div></div>
+        <div class="bow"></div>
+        <div class="bow-center"></div>
+        <div class="leg left"><div class="foot-pad"></div></div>
+        <div class="leg right"><div class="foot-pad"></div></div>
         <div class="arm left"></div>
         <div class="arm right"></div>
-        <div class="leg left"></div>
-        <div class="leg right"></div>
+        <div class="heart"></div>
+        <div class="heart-text">I LOVE YOU</div>
     </div>
 
     <script>
