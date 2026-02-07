@@ -44,9 +44,67 @@
             position: fixed;
             bottom: 0;
             left: 0;
-            width: 300px; /* Kích thước to */
-            height: auto;
+            width: 250px;
+            height: 300px;
             z-index: -1; /* Để không che lời chúc */
+        }
+        .body {
+            width: 150px;
+            height: 200px;
+            background-color: #8B4513; /* Màu nâu */
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+        }
+        .head {
+            width: 120px;
+            height: 120px;
+            background-color: #8B4513;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 180px;
+            left: 65px;
+        }
+        .ear {
+            width: 40px;
+            height: 40px;
+            background-color: #8B4513;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .ear.left {
+            top: 160px;
+            left: 55px;
+        }
+        .ear.right {
+            top: 160px;
+            left: 155px;
+        }
+        .eye {
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .eye.left {
+            top: 200px;
+            left: 85px;
+        }
+        .eye.right {
+            top: 200px;
+            left: 115px;
+        }
+        .nose {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid black;
+            position: absolute;
+            top: 230px;
+            left: 97px;
         }
     </style>
 </head>
@@ -64,8 +122,16 @@
         <div id="message9" class="message">Chúc bé Châu sức khỏe và hạnh phúc mãi mãi!</div>
         <div id="message10" class="message">Valentine này, anh muốn bên bé Châu suốt đời. 💖</div>
     </div>
-    <!-- Gấu bông màu nâu to ở góc trái dưới -->
-    <img src="https://via.placeholder.com/300x300/8B4513/FFFFFF?text=Teddy+Bear" class="teddy" alt="Gấu bông màu nâu">
+    <!-- Gấu bông màu nâu to ở góc trái dưới, vẽ bằng CSS -->
+    <div class="teddy">
+        <div class="body"></div>
+        <div class="head"></div>
+        <div class="ear left"></div>
+        <div class="ear right"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="nose"></div>
+    </div>
 
     <script>
         let currentIndex = 0;
