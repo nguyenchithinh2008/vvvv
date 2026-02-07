@@ -30,29 +30,54 @@
             background-color: #ff1493; /* Màu hồng tối hơn khi hover */
         }
         .letter {
-            display: none;
             width: 400px;
             height: 300px;
             background-color: #fff;
             border: 2px solid #ff69b4;
             border-radius: 10px;
             position: relative;
-            transform: perspective(1000px) rotateY(180deg);
-            transform-origin: left;
-            animation: openLetter 2s ease-out forwards;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg);
+            transition: transform 2s ease-out;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: none; /* Ẩn ban đầu */
         }
-        @keyframes openLetter {
-            0% {
-                transform: perspective(1000px) rotateY(180deg);
-            }
-            100% {
-                transform: perspective(1000px) rotateY(0deg);
-            }
+        .letter.open {
+            transform: perspective(1000px) rotateX(-180deg);
         }
-        .letter-content {
+        .letter-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background-color: #fff;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .letter-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background-color: #fff;
+            border-radius: 10px;
+            transform: rotateX(180deg);
             padding: 20px;
             text-align: center;
+        }
+        .seal {
+            width: 50px;
+            height: 50px;
+            background-color: #ff69b4;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
         }
         .message {
             display: none;
@@ -123,7 +148,10 @@
     <div id="content">
         <button class="button" id="valentineButton" onclick="startValentine()">Bấm vào đây</button>
         <div class="letter" id="letter">
-            <div class="letter-content">
+            <div class="letter-front">
+                <div class="seal" id="seal" onclick="openLetter()"></div>
+            </div>
+            <div class="letter-back">
                 <div id="message1" class="message">Chúc mừng ngày Valentine! ❤️</div>
                 <div id="message2" class="message">Bé Châu là người đặc biệt nhất trong lòng anh.</div>
                 <div id="message3" class="message">Mỗi khoảnh khắc bên bé Châu đều là hạnh phúc.</div>
@@ -149,11 +177,15 @@
             // Ẩn nút
             document.getElementById('valentineButton').style.display = 'none';
             
-            // Hiển thị bức thư và mở ra
-            const letter = document.getElementById('letter');
-            letter.style.display = 'block';
+            // Hiển thị bức thư
+            document.getElementById('letter').style.display = 'block';
+        }
+
+        function openLetter() {
+            // Mở bức thư
+            document.getElementById('letter').classList.add('open');
             
-            // Sau khi bức thư mở (2s), bắt đầu hiển thị lời chúc
+            // Sau khi mở (2s), bắt đầu hiển thị lời chúc
             setTimeout(() => {
                 showNextMessage();
                 intervalId = setInterval(showNextMessage, 3000); // Mỗi 3 giây
