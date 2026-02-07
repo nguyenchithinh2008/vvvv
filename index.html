@@ -3,24 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <style>
-button {
-    padding: 16px 36px;
-    font-size: 20px;
-    border-radius: 15px;
-    border: 2px solid #ff4b5c;
-    background: transparent;
-    color: #ff4b5c;
-    cursor: pointer;
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    font-family:Arial,sans-serif;
+    overflow:hidden;
 }
-button:hover {
-    background: #ff4b5c;
-    color: white;
+
+/* NÚT */
+#btn{
+    padding:20px 48px;
+    font-size:22px;
+    border-radius:20px;
+    border:2px solid #fff;
+    background:rgba(255,255,255,0.15);
+    color:#fff;
+    cursor:pointer;
+}
+
+/* PHONG BÌ */
+#envelope{
+    position:relative;
+    width:260px;
+    height:170px;
+    display:none;
+}
+
+.envelope-body{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#fff;
+    border:4px solid #000;
+    transform:skew(-10deg);
+}
+
+.envelope-flap{
+    position:absolute;
+    top:-5px;
+    left:0;
+    width:100%;
+    height:100%;
+    border-top:4px solid #000;
+    border-left:4px solid #000;
+    border-right:4px solid #000;
+    background:#fff;
+    clip-path:polygon(0 0,50% 50%,100% 0);
+    transform-origin:top;
+    animation:openFlap 1.5s forwards;
+}
+
+/* TRÁI TIM */
+.heart{
+    position:absolute;
+    top:65px;
+    left:115px;
+    width:30px;
+    height:30px;
+    background:red;
+    transform:rotate(-45deg);
+}
+.heart::before,
+.heart::after{
+    content:"";
+    position:absolute;
+    width:30px;
+    height:30px;
+    background:red;
+    border-radius:50%;
+}
+.heart::before{ top:-15px; left:0; }
+.heart::after{ left:15px; top:0; }
+
+/* THƯ */
+.letter{
+    position:absolute;
+    bottom:0;
+    left:15px;
+    width:230px;
+    height:140px;
+    background:#fff;
+    border:3px solid #000;
+    animation:letterUp 2s 1s forwards;
+    transform:translateY(120px);
+}
+
+@keyframes openFlap{
+    to{ transform:rotateX(180deg); }
+}
+@keyframes letterUp{
+    to{ transform:translateY(-40px); }
 }
 </style>
 </head>
 <body>
 
-<button>Hãy nhấn vào đây</button>
+<button id="btn">Hãy nhấn vào đây 💌</button>
+
+<div id="envelope">
+    <div class="envelope-body"></div>
+    <div class="envelope-flap"></div>
+    <div class="heart"></div>
+    <div class="letter"></div>
+</div>
+
+<script>
+document.getElementById("btn").onclick = ()=>{
+    document.getElementById("btn").style.display="none";
+    document.getElementById("envelope").style.display="block";
+};
+</script>
 
 </body>
 </html>
