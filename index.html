@@ -1,85 +1,270 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{
-    margin:0;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-}
-
-/* PHONG BÌ */
-.envelope{
-    position:relative;
-    width:260px;
-    height:170px;
-}
-
-/* THÂN THƯ */
-.body{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:#fff;
-    border:4px solid #000;
-    transform:skew(-10deg);
-}
-
-/* NẮP THƯ */
-.flap{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:#fff;
-    border-top:4px solid #000;
-    border-left:4px solid #000;
-    border-right:4px solid #000;
-    clip-path:polygon(0 0,50% 50%,100% 0);
-}
-
-/* TRÁI TIM */
-.heart{
-    position:absolute;
-    top:70px;
-    left:50%;
-    width:28px;
-    height:28px;
-    background:red;
-    transform:translateX(-50%) rotate(-45deg);
-}
-.heart::before,
-.heart::after{
-    content:"";
-    position:absolute;
-    width:28px;
-    height:28px;
-    background:red;
-    border-radius:50%;
-}
-.heart::before{
-    top:-14px;
-    left:0;
-}
-.heart::after{
-    left:14px;
-    top:0;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Valentine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f2; /* Màu hồng nhạt cho chủ đề Valentine */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            overflow: hidden; /* Để tránh scroll khi trái tim bay */
+        }
+        .button {
+            background-color: #ff69b4; /* Màu hồng đậm */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px; /* Bo góc */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #ff1493; /* Màu hồng tối hơn khi hover */
+        }
+        .letter {
+            width: 320px; /* Kích thước nhỏ */
+            height: 220px; /* Kích thước nhỏ */
+            background-color: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg);
+            transition: transform 2s ease-out;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: none; /* Ẩn ban đầu */
+        }
+        .letter.open {
+            transform: perspective(1000px) rotateX(-180deg) scale(0.85); /* Nhỏ lại một chút khi mở */
+        }
+        .letter-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background-color: #fff;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .triangle {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 10px;
+            background-color: #fff;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            border: 2px solid #ff69b4;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0; /* Bo hai góc trên */
+        }
+        .letter-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background-color: #fff;
+            border-radius: 10px;
+            transform: rotateX(180deg);
+            padding: 20px;
+            text-align: center; /* Chữ ra giữa */
+            overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .seal {
+            width: 50px;
+            height: 50px;
+            background-color: #ff69b4;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        .message {
+            display: none;
+            font-size: 18px; /* Giảm font size để vừa bức thư */
+            color: #d63384;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .visible {
+            opacity: 1;
+        }
+        #heartContainer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .heart-particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff69b4;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: fly 3s ease-out forwards;
+        }
+        @keyframes fly {
+            0% {
+                bottom: 0;
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(180deg);
+            }
+            100% {
+                bottom: 100vh;
+                opacity: 0;
+                transform: scale(0.5) rotate(360deg);
+            }
+        }
+        /* Responsive cho điện thoại */
+        @media (max-width: 600px) {
+            .letter {
+                width: 75vw; /* Giảm kích thước trên mobile */
+                height: 45vh; /* Giảm kích thước trên mobile */
+            }
+            .message {
+                font-size: 16px; /* Giảm font size */
+            }
+            .button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+            .seal {
+                width: 40px;
+                height: 40px;
+            }
+            .heart-particle {
+                width: 15px;
+                height: 15px;
+            }
+            .triangle {
+                width: 15px;
+                height: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div id="content">
+        <button class="button" id="valentineButton" onclick="startValentine()">Bấm vào đây</button>
+        <div class="letter" id="letter">
+            <div class="letter-front">
+                <div class="triangle"></div>
+                <div class="seal" id="seal" onclick="openLetter()"></div>
+            </div>
+            <div class="letter-back">
+                <div id="message1" class="message">Chúc mừng ngày Valentine! Anh yêu bé Châu nhiều lắm. ❤️</div>
+                <div id="message2" class="message">Bé Châu là người đặc biệt nhất trong lòng anh.</div>
+                <div id="message3" class="message">Mỗi khoảnh khắc bên bé Châu đều là hạnh phúc.</div>
+                <div id="message4" class="message">Yêu bé Châu nhiều lắm, mãi mãi! 💕</div>
+                <div id="message5" class="message">Chúc bé Châu một ngày tràn đầy tình yêu và niềm vui!</div>
+                <div id="message6" class="message">Bé Châu luôn làm anh cười mỗi ngày.</div>
+                <div id="message7" class="message">Cảm ơn bé Châu vì tất cả những gì bé Châu đã làm cho anh.</div>
+                <div id="message8" class="message">Anh yêu bé Châu từ cái nhìn đầu tiên.</div>
+                <div id="message9" class="message">Chúc bé Châu sức khỏe và hạnh phúc mãi mãi!</div>
+                <div id="message10" class="message">Valentine này, anh muốn bên bé Châu suốt đời. 💖</div>
+                <div id="message11" class="message">Khi bé Châu vui, anh cũng vui theo. Hãy luôn cười tươi nhé!</div>
+                <div id="message12" class="message">Nếu bé Châu giận, hãy nói cho anh biết để anh an ủi.</div>
+                <div id="message13" class="message">Khi buồn, bé Châu có anh ở bên cạnh luôn.</div>
+                <div id="message14" class="message">Anh luôn sẵn sàng chia sẻ mọi điều với bé Châu.</div>
+                <div id="message15" class="message">Hãy ăn sáng đúng giờ, không nhịn ăn để khỏe mạnh.</div>
+                <div id="message16" class="message">Hạn chế ăn mỳ cay, bé Châu nhé, để tốt cho dạ dày.</div>
+                <div id="message17" class="message">Anh yêu cách bé Châu cười, nó làm anh hạnh phúc.</div>
+                <div id="message18" class="message">Nếu bé Châu tức giận, hãy thở sâu và nghĩ về anh.</div>
+                <div id="message19" class="message">Buồn bã ư? Hãy gọi anh, anh sẽ làm bé Châu vui lên.</div>
+                <div id="message20" class="message">Chia sẻ cảm xúc với anh, bé Châu sẽ nhẹ nhõm hơn.</div>
+                <div id="message21" class="message">Ăn uống điều độ, ăn sớm để có năng lượng suốt ngày.</div>
+                <div id="message22" class="message">Tránh mỳ cay quá nhiều, bé Châu yêu quý của anh.</div>
+                <div id="message23" class="message">Bé Châu vui vẻ là điều anh mong muốn nhất.</div>
+                <div id="message24" class="message">Giận dữ sẽ qua, anh luôn bên bé Châu.</div>
+                <div id="message25" class="message">Khi buồn, hãy nhớ anh yêu bé Châu vô điều kiện.</div>
+                <div id="message26" class="message">Hãy chia sẻ mọi thứ, anh là người lắng nghe tốt nhất.</div>
+                <div id="message27" class="message">Không nhịn ăn, hãy ăn đúng bữa để khỏe.</div>
+                <div id="message28" class="message">Mỳ cay ngon nhưng ăn ít thôi, bé Châu nhé.</div>
+                <div id="message29" class="message">Anh chúc bé Châu luôn vui, ít giận và buồn.</div>
+                <div id="message30" class="message">Yêu bé Châu, ăn uống lành mạnh và chia sẻ cảm xúc với anh. 💖</div>
+            </div>
+        </div>
+    </div>
+    <div id="heartContainer"></div>
 
-<div class="envelope">
-    <div class="body"></div>
-    <div class="flap"></div>
-    <div class="heart"></div>
-</div>
+    <script>
+        let currentIndex = 0;
+        const messages = ['message1', 'message2', 'message3', 'message4', 'message5', 'message6', 'message7', 'message8', 'message9', 'message10', 'message11', 'message12', 'message13', 'message14', 'message15', 'message16', 'message17', 'message18', 'message19', 'message20', 'message21', 'message22', 'message23', 'message24', 'message25', 'message26', 'message27', 'message28', 'message29', 'message30'];
+        let intervalId;
 
+        function startValentine() {
+            // Ẩn nút
+            document.getElementById('valentineButton').style.display = 'none';
+            
+            // Hiển thị bức thư ngay lập tức
+            document.getElementById('letter').style.display = 'block';
+        }
+
+        function openLetter() {
+            // Mở bức thư
+            document.getElementById('letter').classList.add('open');
+            
+            // Sau khi mở (2s), bắt đầu hiển thị lời chúc
+            setTimeout(() => {
+                showNextMessage();
+                intervalId = setInterval(showNextMessage, 3000); // Mỗi 3 giây
+            }, 2000);
+        }
+
+        function showNextMessage() {
+            // Ẩn tất cả lời chúc
+            messages.forEach(id => {
+                const el = document.getElementById(id);
+                el.style.display = 'none';
+                el.classList.remove('visible');
+            });
+
+            // Xóa các trái tim cũ
+            const container = document.getElementById('heartContainer');
+            container.innerHTML = '';
+
+            // Hiển thị lời chúc hiện tại
+            const currentId = messages[currentIndex];
+            document.getElementById(currentId).style.display = 'block';
+            setTimeout(() => {
+                document.getElementById(currentId).classList.add('visible');
+            }, 100);
+
+            // Tạo hiệu ứng trái tim (như pháo bông bắn lên và nổ)
+            for (let i = 0; i < 10; i++) { // Tạo 10 trái tim
+                const heart = document.createElement('div');
+                heart.className = 'heart-particle';
+                heart.style.left = Math.random() * 100 + '%'; // Vị trí ngẫu nhiên ngang
+                heart.style.animationDelay = Math.random() * 0.5 + 's'; // Delay ngẫu nhiên để không đồng bộ
+                container.appendChild(heart);
+            }
+
+            // Tăng chỉ số, lặp lại sau 30
+            currentIndex = (currentIndex + 1) % messages.length;
+        }
+    </script>
 </body>
 </html>
