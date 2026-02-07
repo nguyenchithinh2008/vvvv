@@ -14,6 +14,7 @@
             height: 100vh;
             margin: 0;
             flex-direction: column;
+            overflow: hidden; /* Để tránh scroll khi trái tim bay */
         }
         .button {
             background-color: #ff69b4; /* Màu hồng đậm */
@@ -40,176 +41,36 @@
         .visible {
             opacity: 1;
         }
-        .teddy {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 250px;
-            height: 350px;
-            z-index: -1; /* Để không che lời chúc */
-        }
-        .body {
-            width: 150px;
-            height: 200px;
-            background-color: #D2B48C; /* Màu nâu nhạt cho bụng */
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        #heartContainer {
             position: absolute;
             bottom: 0;
-            left: 50px;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
-        .head {
-            width: 120px;
-            height: 120px;
-            background-color: #D2B48C; /* Màu nâu nhạt cho mặt */
-            border-radius: 50%;
+        .heart-particle {
             position: absolute;
-            bottom: 180px;
-            left: 65px;
-        }
-        .ear {
-            width: 40px;
-            height: 40px;
-            background-color: #D2B48C; /* Màu nâu nhạt */
-            border-radius: 50%;
-            position: absolute;
-        }
-        .ear.left {
-            top: 160px;
-            left: 55px;
-        }
-        .ear.right {
-            top: 160px;
-            left: 155px;
-        }
-        .ear-inner {
             width: 20px;
             height: 20px;
-            background-color: #F5DEB3; /* Nâu nhạt hơn cho bên trong tai */
-            border-radius: 50%;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-        .eye {
-            width: 15px;
-            height: 15px;
-            background-color: black;
-            border-radius: 50%;
-            position: absolute;
-        }
-        .eye.left {
-            top: 200px;
-            left: 80px;
-        }
-        .eye.right {
-            top: 200px;
-            left: 115px;
-        }
-        .nose {
-            width: 8px;
-            height: 6px;
-            background-color: #654321; /* Nâu đậm */
-            border-radius: 50%;
-            position: absolute;
-            top: 230px;
-            left: 96px;
-        }
-        .mouth {
-            width: 20px;
-            height: 10px;
-            background-color: #D2B48C;
-            border-radius: 0 0 50% 50%;
-            position: absolute;
-            top: 240px;
-            left: 90px;
-            overflow: hidden;
-        }
-        .tongue {
-            width: 10px;
-            height: 5px;
-            background-color: #FF69B4; /* Hồng */
-            border-radius: 50%;
-            position: absolute;
-            top: 5px;
-            left: 5px;
-        }
-        .bow {
-            width: 30px;
-            height: 15px;
-            background-color: black;
-            border-radius: 50% 50% 0 0;
-            position: absolute;
-            top: 175px;
-            left: 85px;
-        }
-        .bow-center {
-            width: 10px;
-            height: 10px;
-            background-color: black;
-            border-radius: 50%;
-            position: absolute;
-            top: 170px;
-            left: 95px;
-        }
-        .leg {
-            width: 50px;
-            height: 80px;
-            background-color: #8B4513; /* Nâu */
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            position: absolute;
-        }
-        .leg.left {
-            bottom: 0;
-            left: 60px;
-        }
-        .leg.right {
-            bottom: 0;
-            left: 140px;
-        }
-        .foot-pad {
-            width: 30px;
-            height: 20px;
-            background-color: #D2B48C; /* Nâu nhạt cho lòng bàn chân */
-            border-radius: 50%;
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-        }
-        .arm {
-            width: 60px;
-            height: 30px;
-            background-color: #8B4513;
-            border-radius: 50%;
-            position: absolute;
-        }
-        .arm.left {
-            top: 220px;
-            left: 20px;
-            transform: rotate(-30deg);
-        }
-        .arm.right {
-            top: 220px;
-            left: 170px;
-            transform: rotate(30deg);
-        }
-        .heart {
-            width: 80px;
-            height: 70px;
-            background-color: #FF69B4; /* Hồng */
-            position: absolute;
-            top: 200px;
-            left: 85px;
-            transform: rotate(-10deg);
+            background-color: #ff69b4;
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: fly 3s ease-out forwards;
         }
-        .heart-text {
-            position: absolute;
-            top: 220px;
-            left: 105px;
-            font-size: 10px;
-            color: white;
-            font-weight: bold;
-            transform: rotate(-10deg);
+        @keyframes fly {
+            0% {
+                bottom: 0;
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(180deg);
+            }
+            100% {
+                bottom: 100vh;
+                opacity: 0;
+                transform: scale(0.5) rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -227,25 +88,7 @@
         <div id="message9" class="message">Chúc bé Châu sức khỏe và hạnh phúc mãi mãi!</div>
         <div id="message10" class="message">Valentine này, anh muốn bên bé Châu suốt đời. 💖</div>
     </div>
-    <!-- Gấu bông theo mô tả -->
-    <div class="teddy">
-        <div class="body"></div>
-        <div class="head"></div>
-        <div class="ear left"><div class="ear-inner"></div></div>
-        <div class="ear right"><div class="ear-inner"></div></div>
-        <div class="eye left"></div>
-        <div class="eye right"></div>
-        <div class="nose"></div>
-        <div class="mouth"><div class="tongue"></div></div>
-        <div class="bow"></div>
-        <div class="bow-center"></div>
-        <div class="leg left"><div class="foot-pad"></div></div>
-        <div class="leg right"><div class="foot-pad"></div></div>
-        <div class="arm left"></div>
-        <div class="arm right"></div>
-        <div class="heart"></div>
-        <div class="heart-text">I LOVE YOU</div>
-    </div>
+    <div id="heartContainer"></div>
 
     <script>
         let currentIndex = 0;
@@ -269,12 +112,25 @@
                 el.classList.remove('visible');
             });
 
+            // Xóa các trái tim cũ
+            const container = document.getElementById('heartContainer');
+            container.innerHTML = '';
+
             // Hiển thị lời chúc hiện tại
             const currentId = messages[currentIndex];
             document.getElementById(currentId).style.display = 'block';
             setTimeout(() => {
                 document.getElementById(currentId).classList.add('visible');
             }, 100);
+
+            // Tạo hiệu ứng trái tim (như pháo bông bắn lên và nổ)
+            for (let i = 0; i < 10; i++) { // Tạo 10 trái tim
+                const heart = document.createElement('div');
+                heart.className = 'heart-particle';
+                heart.style.left = Math.random() * 100 + '%'; // Vị trí ngẫu nhiên ngang
+                heart.style.animationDelay = Math.random() * 0.5 + 's'; // Delay ngẫu nhiên để không đồng bộ
+                container.appendChild(heart);
+            }
 
             // Tăng chỉ số, lặp lại sau 10
             currentIndex = (currentIndex + 1) % messages.length;
