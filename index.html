@@ -13,10 +13,11 @@ body{
     justify-content:center;
     align-items:center;
     background:#ffe6f2;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, sans-serif;
     overflow:hidden;
 }
 
+/* NÚT BẮT ĐẦU */
 .button{
     padding:15px 30px;
     font-size:18px;
@@ -29,79 +30,112 @@ body{
 
 /* ===== PHONG BÌ ===== */
 .envelope{
+    position:relative;
     width:320px;
     height:200px;
-    position:absolute;
     display:none;
 }
 
-/* thân phong bì */
-.envelope-body{
+/* mặt sau */
+.back{
     position:absolute;
-    bottom:0;
     width:100%;
-    height:140px;
+    height:100%;
     background:#fff;
     border:2px solid #ff69b4;
-    border-radius:0 0 12px 12px;
-    z-index:2;
+    border-radius:12px;
+    z-index:1;
 }
 
-/* nắp phong bì */
-.envelope-flap{
+/* GIẤY THƯ */
+.letter-paper{
     position:absolute;
-    top:0;
-    width:0;
-    height:0;
+    width:280px;
+    height:160px;
+    background:#fffdf8;
+    left:20px;
+    bottom:20px;
+    border-radius:10px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    transform:translateY(100%);
+    transition:1.6s ease;
+    z-index:2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+    text-align:center;
+}
+
+/* CÁC CÁNH PHONG BÌ */
+.front{
+    position:absolute;
+    z-index:3;
+}
+
+/* cánh trái */
+.left{
+    border-left:160px solid #ffd1e8;
+    border-top:100px solid transparent;
+    border-bottom:100px solid transparent;
+    left:0;
+}
+
+/* cánh phải */
+.right{
+    border-right:160px solid #ffd1e8;
+    border-top:100px solid transparent;
+    border-bottom:100px solid transparent;
+    right:0;
+}
+
+/* cánh dưới */
+.bottom{
     border-left:160px solid transparent;
     border-right:160px solid transparent;
-    border-bottom:90px solid #ffd1e8;
-    transform-origin:top;
-    transition:1.5s;
-    z-index:4;
+    border-top:100px solid #ffb6d9;
+    bottom:0;
 }
 
-/* tem tim */
+/* cánh trên */
+.top{
+    border-left:160px solid transparent;
+    border-right:160px solid transparent;
+    border-bottom:100px solid #ffcce5;
+    top:0;
+    transform-origin:top;
+    transition:1.6s ease;
+}
+
+/* TEM */
 .seal{
     position:absolute;
-    top:95px;
+    top:90px;
     left:50%;
     transform:translateX(-50%);
-    width:50px;
-    height:50px;
+    width:42px;
+    height:42px;
     background:#ff69b4;
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
     cursor:pointer;
     z-index:5;
 }
 
-/* giấy thư */
-.letter-paper{
-    position:absolute;
-    bottom:20px;
-    left:10px;
-    width:300px;
-    height:180px;
-    background:#fffdf8;
-    border-radius:10px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.15);
-    padding:20px;
-    text-align:center;
-    transform:translateY(100%);
-    transition:2s;
-    z-index:3;
-}
-
-/* mở thư */
-.envelope.open .envelope-flap{
+/* MỞ THƯ */
+.envelope.open .top{
     transform:rotateX(180deg);
 }
 
 .envelope.open .letter-paper{
-    transform:translateY(-120px);
+    transform:translateY(-80px);
 }
 
-/* lời chúc */
+/* LỜI CHÚC */
 .message{
     font-size:18px;
     color:#d63384;
@@ -111,45 +145,27 @@ body{
 .message.show{
     opacity:1;
 }
-
-/* pháo hoa */
-#fireworks{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:-1;
-}
-.particle{
-    position:absolute;
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    animation:boom 1s ease-out forwards;
-}
-@keyframes boom{
-    to{
-        transform:translate(var(--x),var(--y)) scale(0);
-        opacity:0;
-    }
-}
 </style>
 </head>
 
 <body>
 
-<button class="button" id="btn" onclick="start()">Bấm vào đây</button>
+<button class="button" id="startBtn" onclick="start()">Bấm vào đây</button>
 
 <div class="envelope" id="envelope">
-    <div class="envelope-flap"></div>
-    <div class="envelope-body"></div>
-    <div class="seal" onclick="openEnvelope()"></div>
+    <div class="back"></div>
 
     <div class="letter-paper">
         <div id="message" class="message"></div>
     </div>
-</div>
 
-<div id="fireworks"></div>
+    <div class="front left"></div>
+    <div class="front right"></div>
+    <div class="front bottom"></div>
+    <div class="front top"></div>
+
+    <div class="seal" onclick="openEnvelope()">★</div>
+</div>
 
 <script>
 const messages=[
@@ -163,45 +179,28 @@ const messages=[
 let i=0, timer;
 
 function start(){
-    document.getElementById("btn").style.display="none";
+    document.getElementById("startBtn").style.display="none";
     document.getElementById("envelope").style.display="block";
 }
 
 function openEnvelope(){
-    document.getElementById("envelope").classList.add("open");
+    const e=document.getElementById("envelope");
+    e.classList.add("open");
+
     setTimeout(()=>{
-        showMsg();
-        timer=setInterval(showMsg,3000);
-    },2000);
+        showMessage();
+        timer=setInterval(showMessage,3000);
+    },1600);
 }
 
-function showMsg(){
+function showMessage(){
     const m=document.getElementById("message");
     m.classList.remove("show");
     setTimeout(()=>{
         m.innerText=messages[i];
         m.classList.add("show");
-        firework();
-        firework();
         i=(i+1)%messages.length;
     },300);
-}
-
-function firework(){
-    const f=document.getElementById("fireworks");
-    const x=Math.random()*innerWidth;
-    const y=Math.random()*innerHeight*0.6;
-    for(let i=0;i<18;i++){
-        const p=document.createElement("div");
-        p.className="particle";
-        p.style.left=x+"px";
-        p.style.top=y+"px";
-        p.style.background=`hsl(${Math.random()*360},100%,70%)`;
-        p.style.setProperty("--x",(Math.random()*200-100)+"px");
-        p.style.setProperty("--y",(Math.random()*200-100)+"px");
-        f.appendChild(p);
-        setTimeout(()=>p.remove(),1000);
-    }
 }
 </script>
 
