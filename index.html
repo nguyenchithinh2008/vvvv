@@ -3,137 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chúc Valentine</title>
+<title>Love Letter</title>
 
 <style>
 body{
-    font-family: Arial, sans-serif;
-    background:#ffe6f2;
+    margin:0;
+    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
-    margin:0;
+    background:#ffe6f2;
+    font-family: 'Segoe UI', sans-serif;
     overflow:hidden;
-    flex-direction:column;
 }
 
-/* Nút */
 .button{
-    background:#ff69b4;
-    color:white;
-    border:none;
     padding:15px 30px;
     font-size:18px;
-    border-radius:10px;
+    border:none;
+    border-radius:12px;
+    background:#ff69b4;
+    color:white;
     cursor:pointer;
 }
 
-/* Thư */
-.letter{
+/* ===== PHONG BÌ ===== */
+.envelope{
     width:320px;
-    height:220px;
+    height:200px;
     position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
     display:none;
-    z-index:10;
 }
 
-.letter-top,.letter-bottom{
+/* thân phong bì */
+.envelope-body{
     position:absolute;
-    width:100%;
-    height:50%;
-    background:white;
-    border:2px solid #ff69b4;
-    transition:2s;
-}
-
-.letter-top{
-    top:0;
-    transform-origin:bottom;
-}
-.letter-bottom{
     bottom:0;
-    transform-origin:top;
-}
-
-.letter.open .letter-top{
-    transform:rotateX(180deg);
-    opacity:0;
-}
-.letter.open .letter-bottom{
-    transform:rotateX(-180deg);
-    opacity:0;
-}
-
-.letter-back{
-    position:absolute;
     width:100%;
-    height:100%;
-    background:white;
+    height:140px;
+    background:#fff;
     border:2px solid #ff69b4;
-    border-radius:10px;
-    padding:20px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    opacity:0;
-    transition:2s;
+    border-radius:0 0 12px 12px;
+    z-index:2;
 }
 
-.letter.open .letter-back{
-    opacity:1;
+/* nắp phong bì */
+.envelope-flap{
+    position:absolute;
+    top:0;
+    width:0;
+    height:0;
+    border-left:160px solid transparent;
+    border-right:160px solid transparent;
+    border-bottom:90px solid #ffd1e8;
+    transform-origin:top;
+    transition:1.5s;
+    z-index:4;
 }
 
+/* tem tim */
 .seal{
-    width:45px;
-    height:45px;
+    position:absolute;
+    top:95px;
+    left:50%;
+    transform:translateX(-50%);
+    width:50px;
+    height:50px;
     background:#ff69b4;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
     cursor:pointer;
+    z-index:5;
 }
 
-/* Lời chúc */
+/* giấy thư */
+.letter-paper{
+    position:absolute;
+    bottom:20px;
+    left:10px;
+    width:300px;
+    height:180px;
+    background:#fffdf8;
+    border-radius:10px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    padding:20px;
+    text-align:center;
+    transform:translateY(100%);
+    transition:2s;
+    z-index:3;
+}
+
+/* mở thư */
+.envelope.open .envelope-flap{
+    transform:rotateX(180deg);
+}
+
+.envelope.open .letter-paper{
+    transform:translateY(-120px);
+}
+
+/* lời chúc */
 .message{
-    display:none;
     font-size:18px;
     color:#d63384;
     opacity:0;
     transition:1s;
 }
-.message.visible{
+.message.show{
     opacity:1;
 }
 
-/* PHÁO HOA NỔ */
+/* pháo hoa */
 #fireworks{
     position:fixed;
     inset:0;
     pointer-events:none;
     z-index:-1;
 }
-
 .particle{
     position:absolute;
     width:6px;
     height:6px;
-    background:#ff69b4;
     border-radius:50%;
-    animation:explode 1s ease-out forwards;
+    animation:boom 1s ease-out forwards;
 }
-
-@keyframes explode{
-    from{
-        transform:translate(0,0) scale(1);
-        opacity:1;
-    }
+@keyframes boom{
     to{
         transform:translate(var(--x),var(--y)) scale(0);
         opacity:0;
@@ -144,14 +137,14 @@ body{
 
 <body>
 
-<button class="button" id="valentineButton" onclick="startValentine()">Bấm vào đây</button>
+<button class="button" id="btn" onclick="start()">Bấm vào đây</button>
 
-<div class="letter" id="letter">
-    <div class="letter-top">
-        <div class="seal" onclick="openLetter()"></div>
-    </div>
-    <div class="letter-bottom"></div>
-    <div class="letter-back">
+<div class="envelope" id="envelope">
+    <div class="envelope-flap"></div>
+    <div class="envelope-body"></div>
+    <div class="seal" onclick="openEnvelope()"></div>
+
+    <div class="letter-paper">
         <div id="message" class="message"></div>
     </div>
 </div>
@@ -160,48 +153,45 @@ body{
 
 <script>
 const messages=[
-"Chúc mừng ngày Valentine! Anh yêu bé Châu nhiều lắm ❤️",
-"Bé Châu là người đặc biệt nhất trong lòng anh",
-"Mỗi khoảnh khắc bên bé Châu đều là hạnh phúc",
-"Yêu bé Châu mãi mãi 💕",
-"Valentine này anh muốn bên bé Châu suốt đời 💖"
+"Chúc mừng Valentine ❤️",
+"Anh yêu bé Châu rất nhiều",
+"Bé Châu là điều tuyệt vời nhất",
+"Mỗi ngày có bé Châu là hạnh phúc",
+"Yêu bé Châu mãi mãi 💕"
 ];
 
-let index=0;
-let interval;
+let i=0, timer;
 
-function startValentine(){
-    document.getElementById("valentineButton").style.display="none";
-    document.getElementById("letter").style.display="block";
+function start(){
+    document.getElementById("btn").style.display="none";
+    document.getElementById("envelope").style.display="block";
 }
 
-function openLetter(){
-    document.getElementById("letter").classList.add("open");
+function openEnvelope(){
+    document.getElementById("envelope").classList.add("open");
     setTimeout(()=>{
-        showMessage();
-        interval=setInterval(showMessage,3000);
+        showMsg();
+        timer=setInterval(showMsg,3000);
     },2000);
 }
 
-function showMessage(){
-    const msg=document.getElementById("message");
-    msg.classList.remove("visible");
+function showMsg(){
+    const m=document.getElementById("message");
+    m.classList.remove("show");
     setTimeout(()=>{
-        msg.innerText=messages[index];
-        msg.style.display="block";
-        msg.classList.add("visible");
-        createFirework();
-        createFirework();
-        index=(index+1)%messages.length;
+        m.innerText=messages[i];
+        m.classList.add("show");
+        firework();
+        firework();
+        i=(i+1)%messages.length;
     },300);
 }
 
-function createFirework(){
-    const fireworks=document.getElementById("fireworks");
-    const x=Math.random()*window.innerWidth;
-    const y=Math.random()*window.innerHeight*0.6;
-
-    for(let i=0;i<20;i++){
+function firework(){
+    const f=document.getElementById("fireworks");
+    const x=Math.random()*innerWidth;
+    const y=Math.random()*innerHeight*0.6;
+    for(let i=0;i<18;i++){
         const p=document.createElement("div");
         p.className="particle";
         p.style.left=x+"px";
@@ -209,7 +199,7 @@ function createFirework(){
         p.style.background=`hsl(${Math.random()*360},100%,70%)`;
         p.style.setProperty("--x",(Math.random()*200-100)+"px");
         p.style.setProperty("--y",(Math.random()*200-100)+"px");
-        fireworks.appendChild(p);
+        f.appendChild(p);
         setTimeout(()=>p.remove(),1000);
     }
 }
