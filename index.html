@@ -32,13 +32,16 @@
         .letter {
             width: 320px; /* Kích thước nhỏ */
             height: 220px; /* Kích thước nhỏ */
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             transform-style: preserve-3d;
             transition: transform 2s ease-out;
             display: none; /* Ẩn ban đầu */
         }
         .letter.open {
-            transform: scale(0.85); /* Nhỏ lại khi mở */
+            transform: translate(-50%, -50%) scale(0.85); /* Nhỏ lại khi mở, vẫn giữa màn hình */
         }
         .letter-top, .letter-bottom {
             position: absolute;
@@ -144,10 +147,6 @@
             .letter {
                 width: 75vw; /* Giảm kích thước trên mobile */
                 height: 45vh; /* Giảm kích thước trên mobile */
-                position: absolute; /* Đặt absolute để căn giữa chính xác */
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
             }
             .message {
                 font-size: 16px; /* Giảm font size */
