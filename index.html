@@ -139,37 +139,6 @@
         .visible {
             opacity: 1;
         }
-        #heartContainer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        .heart-particle {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #ff69b4;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            animation: fly 3s ease-out forwards;
-        }
-        @keyframes fly {
-            0% {
-                bottom: 0;
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.2) rotate(180deg);
-            }
-            100% {
-                bottom: 100vh;
-                opacity: 0;
-                transform: scale(0.5) rotate(360deg);
-            }
-        }
         /* Responsive cho điện thoại */
         @media (max-width: 600px) {
             .letter {
@@ -186,10 +155,6 @@
             .seal {
                 width: 40px;
                 height: 40px;
-            }
-            .heart-particle {
-                width: 15px;
-                height: 15px;
             }
             .triangle {
                 width: 15px;
@@ -243,7 +208,6 @@
             </div>
         </div>
     </div>
-    <div id="heartContainer"></div>
 
     <script>
         let currentIndex = 0;
@@ -277,25 +241,12 @@
                 el.classList.remove('visible');
             });
 
-            // Xóa các trái tim cũ
-            const container = document.getElementById('heartContainer');
-            container.innerHTML = '';
-
             // Hiển thị lời chúc hiện tại
             const currentId = messages[currentIndex];
             document.getElementById(currentId).style.display = 'block';
             setTimeout(() => {
                 document.getElementById(currentId).classList.add('visible');
             }, 100);
-
-            // Tạo hiệu ứng trái tim (như pháo bông bắn lên và nổ)
-            for (let i = 0; i < 10; i++) { // Tạo 10 trái tim
-                const heart = document.createElement('div');
-                heart.className = 'heart-particle';
-                heart.style.left = Math.random() * 100 + '%'; // Vị trí ngẫu nhiên ngang
-                heart.style.animationDelay = Math.random() * 0.5 + 's'; // Delay ngẫu nhiên để không đồng bộ
-                container.appendChild(heart);
-            }
 
             // Tăng chỉ số, lặp lại sau 30
             currentIndex = (currentIndex + 1) % messages.length;
