@@ -47,7 +47,8 @@
             background-color: #fff;
             border: 2px solid #ff69b4;
             backface-visibility: hidden;
-            transition: transform 2s ease-out;
+            transition: transform 2s ease-out, opacity 2s ease-out;
+            z-index: 2;
         }
         .letter-top {
             top: 0;
@@ -62,10 +63,12 @@
             transform-origin: top;
         }
         .letter.open .letter-top {
-            transform: rotateX(90deg); /* Lật 90 độ để mở */
+            transform: rotateX(180deg);
+            opacity: 0;
         }
         .letter.open .letter-bottom {
-            transform: rotateX(-90deg); /* Lật -90 độ để mở */
+            transform: rotateX(-180deg);
+            opacity: 0;
         }
         .triangle {
             position: absolute;
@@ -99,16 +102,19 @@
             border-radius: 10px;
             backface-visibility: hidden;
             transform: rotateX(180deg);
+            opacity: 0;
             padding: 20px;
             text-align: center; /* Chữ ra giữa */
             overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 2s ease-out;
+            transition: transform 2s ease-out, opacity 2s ease-out;
+            z-index: 3;
         }
         .letter.open .letter-back {
             transform: rotateX(0deg);
+            opacity: 1;
         }
         .seal {
             width: 50px;
@@ -120,7 +126,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 10;
+            z-index: 4;
         }
         .message {
             display: none;
