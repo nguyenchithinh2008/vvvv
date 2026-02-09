@@ -111,6 +111,7 @@
             text-align: center; /* Chữ ra giữa */
             overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             transition: transform 2s ease-out, opacity 2s ease-out;
@@ -119,6 +120,12 @@
         .letter.open .letter-back {
             transform: rotateX(0deg);
             opacity: 1;
+        }
+        .letter-title {
+            font-size: 20px;
+            color: #d63384;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
         .seal {
             width: 50px;
@@ -211,6 +218,9 @@
                 width: 4px;
                 height: 4px;
             }
+            .letter-title {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -226,6 +236,7 @@
             <div class="letter-bottom">
             </div>
             <div class="letter-back">
+                <div class="letter-title">Thịnh gửi em ý</div>
                 <div id="message1" class="message">Chúc mừng ngày Valentine! Anh yêu bé Châu nhiều lắm. ❤️</div>
                 <div id="message2" class="message">Bé Châu là người đặc biệt nhất trong lòng anh.</div>
                 <div id="message3" class="message">Mỗi khoảnh khắc bên bé Châu đều là hạnh phúc.</div>
