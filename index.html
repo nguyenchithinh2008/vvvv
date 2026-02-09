@@ -131,6 +131,15 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 4;
+            animation: blink 1s infinite; /* Hiệu ứng nhấp nháy */
+        }
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0.5;
+            }
         }
         .message {
             display: none;
